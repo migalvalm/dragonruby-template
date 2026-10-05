@@ -1,0 +1,90 @@
+# RuboCop tuned for DragonRuby (mruby, 60fps game loop, docs' own style).
+AllCops:
+  TargetRubyVersion: 3.0 # DragonRuby runs mruby 3; don't suggest newer syntax
+  NewCops: enable
+  SuggestExtensions: false
+  Include: ['app/**/*.rb', 'tests/**/*.rb']
+
+# DragonRuby style: `def tick args` (see ../docs). Parens only for multiline defs.
+Style/MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses_except_multiline
+
+# The engine owns these globals.
+Style/GlobalVars:
+  AllowedVariables: ['$game', '$gtk', '$args']
+
+# Game math: x, y, w, h, dx, t, r, g, b, a...
+Naming/MethodParameterName:
+  MinNameLength: 1
+
+# Aligned trailing comments are intentional.
+Layout/ExtraSpacing:
+  AllowBeforeTrailingComments: true
+
+# Sprite/label hashes are long by nature.
+Layout/LineLength:
+  Max: 160
+
+# tick/draw/sprite methods are long by nature; flag only real outliers.
+Metrics/MethodLength:
+  Max: 25
+Metrics/AbcSize:
+  Max: 40
+Metrics/CyclomaticComplexity:
+  Max: 12
+Metrics/PerceivedComplexity:
+  Max: 13
+Metrics/ClassLength:
+  Max: 250
+Metrics/ModuleLength:
+  Max: 110
+# Game maths (x, y, w, h, dx, dz...) come in long lists; keyword args (Sound.play's variants:) don't count.
+Metrics/ParameterLists:
+  Max: 8
+  CountKeywordArgs: false
+
+# Not useful in this codebase / mruby.
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MutableConstant: # .freeze noise; engine/tests may hand constants to APIs
+  Enabled: false
+Style/NumericPredicate: # `x == 0` reads better and is cheaper than `x.zero?` in a hot loop
+  Enabled: false
+Style/ParallelAssignment: # `@x, @y = x, y` is idiomatic here
+  Enabled: false
+Style/AccessorGrouping: # one attr per line keeps each field's own trailing comment
+  Enabled: false
+Style/OptionalBooleanParameter: # `head = false`, `running = false`: positional flags read fine here
+  Enabled: false
+
+# DragonRuby's test runner requires `def test_x args, assert`.
+Lint/UnusedMethodArgument:
+  Exclude: ['tests/**/*']
+Lint/AmbiguousBlockAssociation: # `assert.true! x.any? { ... }`
+  Exclude: ['tests/**/*']
+
+# Game math like `a * b + c` doesn't need parens.
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+# Compact DragonRuby style.
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+# `update` may return a flag; `open!`-style methods memoize.
+Naming/PredicateMethod:
+  Enabled: false
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+# DragonRuby docs write `require 'app/foo.rb'`.
+Style/RedundantFileExtensionInRequire:
+  Enabled: false
+# mruby's Hash#to_h ignores a block, so keep `map { }.to_h`.
+Style/MapToHash:
+  Enabled: false
+# Symbols are data names (:blood_1, json keys), not variables.
+Naming/VariableNumber:
+  CheckSymbols: false
+# mruby's Kernel#rand takes no Range ("can't convert Range to Integer"), so keep `1 + rand(5)`.
+Style/RandomWithOffset:
+  Enabled: false

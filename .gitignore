@@ -54,3 +54,16 @@ build-iPhoneSimulator/
 
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
+
+# DragonRuby / local
+.DS_Store
+# .claude: keep local settings/worktrees out, share the project rules and skills
+.claude/*
+!.claude/rules/
+!.claude/skills/
+logs/
+tmp/
+builds/
+errors/
+# per-player options written by the game (Settings)
+settings.txt
