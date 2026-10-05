@@ -1,0 +1,10 @@
+devid=mizstudio
+devtitle=mizstudio
+gameid=newgame
+gametitle=New Game
+version=0.1
+icon=metadata/icon.png
+# 3 = SDL3 pixel-art shader (crisp pixels when scaled); 1/2 blur. Restart the game after changing metadata.
+scale_quality=3
+# source art/audio (sprites/originals, sounds/originals) stays out of builds
+ignore_directories=originals
