@@ -5,6 +5,8 @@
 A starter for [DragonRuby Game Toolkit](https://dragonruby.org/toolkit/game) games.
 [Get DragonRuby](https://dragonruby.org/toolkit/game#purchase) · [Docs](https://docs.dragonruby.org/#/) · [Samples](https://samples.dragonruby.org) · [Discord](https://discord.dragonruby.org)
 
+Tested with **DragonRuby 7.18** (Standard, build of 2026-09-11).
+
 Scene loop (splash → menu → game with pause), settings (volume / window / fullscreen, saved), keyboard + pad input,
 sound helpers, JSON data loading, RuboCop config for mruby, tests, and a CLAUDE.md + skills for Claude Code.
 
